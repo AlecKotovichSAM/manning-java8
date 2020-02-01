@@ -95,7 +95,7 @@ public class Lesson_01_FunctionsIntro {
 	}
 
 	// 2) Example 2: Predicate
-	static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p) {
+	private static List<Apple> filterApples(List<Apple> inventory, Predicate<Apple> p) {
 		List<Apple> result = new ArrayList<>();
 		for (Apple apple : inventory) {
 			if (p.test(apple)) {

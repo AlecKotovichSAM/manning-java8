@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,7 +17,7 @@ import lombok.ToString;
  * @author okoto
  *
  */
-public class Lesson_01_Functions {
+public class Lesson_01_FunctionsIntro {
 
 	public enum Color {
 		GREEN, YELLOW, RED
@@ -45,17 +46,29 @@ public class Lesson_01_Functions {
 	public static void main(String[] args) {
 		listFiles(); // 1)
 
+		// 2
 		List<Apple> apples = new ArrayList<>();
 		Apple apple1 = new Apple(Color.GREEN, 151);
-		Apple apple2 = new Apple(Color.YELLOW, 149);
+		Apple apple2 = new Apple(Color.YELLOW, 80);
+		Apple apple3 = new Apple(Color.RED, 79);
 
 		apples.add(apple1);
 		apples.add(apple2);
+		apples.add(apple3);
 
 		List<Apple> filteredApples = filterApples(apples, Apple::isGreenApple);
 		List<Apple> filteredApples2 = filterApples(filteredApples, Apple::isHeavyApple);
 
 		filteredApples2.stream().forEach(System.out::println);
+
+		// 3
+		List<Apple> filteredApples3 = filterApples(apples,
+				(Apple a) -> a.getWeight() < 80 || Color.RED.equals(a.getColor()));
+		filteredApples3.stream().forEach(System.out::println);
+
+		// 4
+		Stream<Apple> filteredApples4 = apples.stream().filter(a -> Color.YELLOW.equals(a.getColor()));
+		filteredApples4.forEach(System.out::println);
 
 	}
 

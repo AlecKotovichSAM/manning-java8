@@ -1,12 +1,14 @@
 /**
  * 
  */
-package com.alec.java8;
+package com.alec.java8.chapter01;
 
 import java.io.File;
 import java.io.FileFilter;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 import lombok.AllArgsConstructor;
@@ -75,8 +77,21 @@ public class Lesson_01_FunctionsIntro {
 	// 1) Example 1: Function
 	private static void listFiles() {
 		FileFilter filter = File::isHidden;
+		//MyFuncI funcI = File::canRead;
+		//MyFuncI funcI = File::isDirectory;
+		MyFuncI funcI = File::isFile;
 		File[] hiddenFiles = new File(".").listFiles(filter);
-		System.out.println(hiddenFiles.toString());
+		System.out.println(Arrays.asList(hiddenFiles) //
+				.stream() //
+				.map(f -> f.getName()) //
+				.collect(Collectors.joining(",")));
+
+		File[] readableFiles = new MyFile(".").listFiles(funcI);
+		System.out.println(Arrays.asList(readableFiles) //
+				.stream() //
+				.map(f -> f.toString()) //
+				.collect(Collectors.joining(", ")));
+
 	}
 
 	// 2) Example 2: Predicate
@@ -92,5 +107,34 @@ public class Lesson_01_FunctionsIntro {
 
 	public interface Predicate<T> {
 		boolean test(T t);
+	}
+
+	@FunctionalInterface
+	public interface MyFuncI {
+
+		boolean test(File file);
+	}
+
+	public static class MyFile extends File {
+
+		public MyFile(String pathname) {
+			super(pathname);
+		}
+
+		public File[] listFiles(MyFuncI funcI) {
+			String ss[] = list();
+			if (ss == null) {
+				return null;
+			}
+			List<File> files = new ArrayList<>();
+			for (String s : ss) {
+				File f = new File(s);
+				if ((funcI == null) || funcI.test(f)) {
+					files.add(f);
+				}
+			}
+			return files.toArray(new File[files.size()]);
+		}
+
 	}
 }

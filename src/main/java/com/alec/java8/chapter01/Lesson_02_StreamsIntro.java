@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.alec.java8;
+package com.alec.java8.chapter01;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -55,6 +55,11 @@ public class Lesson_02_StreamsIntro {
 				.filter(t -> t.getPrice() > 1000) //
 				.collect(Collectors.groupingBy(Transaction::getCurrency)) //
 				.forEach(action);
+
+		transactions //
+				.stream() //
+				.filter(t -> t.getPrice() > 1000) //
+				.collect(Collectors.toList());
 
 	}
 

@@ -42,22 +42,41 @@ public class Lesson_01_FunctionsIntro {
 		}
 	}
 
+	public static class AppleInventory {
+		private final List<Apple> apples;
+
+		private static AppleInventory INSTANCE;
+
+		private AppleInventory() {
+			apples = new ArrayList<>();
+
+			Apple apple1 = new Apple(Color.GREEN, 151);
+			Apple apple2 = new Apple(Color.YELLOW, 80);
+			Apple apple3 = new Apple(Color.RED, 79);
+			Apple apple4 = new Apple(Color.RED, 151);
+
+			apples.add(apple1);
+			apples.add(apple2);
+			apples.add(apple3);
+			apples.add(apple4);
+		}
+
+		public static List<Apple> getApples() {
+			if (INSTANCE == null) {
+				INSTANCE = new AppleInventory();
+			}
+			return INSTANCE.apples;
+		}
+	}
+
 	/**
 	 * @param args
 	 */
 	public static void main(String[] args) {
 		listFiles(); // 1)
 
+		List<Apple> apples = AppleInventory.getApples();
 		// 2
-		List<Apple> apples = new ArrayList<>();
-		Apple apple1 = new Apple(Color.GREEN, 151);
-		Apple apple2 = new Apple(Color.YELLOW, 80);
-		Apple apple3 = new Apple(Color.RED, 79);
-
-		apples.add(apple1);
-		apples.add(apple2);
-		apples.add(apple3);
-
 		List<Apple> filteredApples = filterApples(apples, Apple::isGreenApple);
 		List<Apple> filteredApples2 = filterApples(filteredApples, Apple::isHeavyApple);
 
@@ -77,8 +96,8 @@ public class Lesson_01_FunctionsIntro {
 	// 1) Example 1: Function
 	private static void listFiles() {
 		FileFilter filter = File::isHidden;
-		//MyFuncI funcI = File::canRead;
-		//MyFuncI funcI = File::isDirectory;
+		// MyFuncI funcI = File::canRead;
+		// MyFuncI funcI = File::isDirectory;
 		MyFuncI funcI = File::isFile;
 		File[] hiddenFiles = new File(".").listFiles(filter);
 		System.out.println(Arrays.asList(hiddenFiles) //

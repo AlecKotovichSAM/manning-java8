@@ -12,7 +12,7 @@ import com.alec.java8.chapter01.Lesson_01_FunctionsIntro.AppleInventory;
  * @author okoto
  *
  */
-public class Quiz21 {
+public class Quiz2_1_PrettyPrint {
 
 	/**
 	 * @param args

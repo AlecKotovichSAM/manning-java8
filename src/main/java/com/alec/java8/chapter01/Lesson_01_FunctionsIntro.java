@@ -83,8 +83,7 @@ public class Lesson_01_FunctionsIntro {
 		filteredApples2.stream().forEach(System.out::println);
 
 		// 3
-		List<Apple> filteredApples3 = filterApples(apples,
-				(Apple a) -> a.getWeight() < 80 || Color.RED.equals(a.getColor()));
+		List<Apple> filteredApples3 = filterApples(apples, (Apple a) -> a.getWeight() < 80 || Color.RED.equals(a.getColor()));
 		filteredApples3.stream().forEach(System.out::println);
 
 		// 4
@@ -94,7 +93,7 @@ public class Lesson_01_FunctionsIntro {
 	}
 
 	// 1) Example 1: Function
-	private static void listFiles() {
+	public static File[] listFiles() {
 		FileFilter filter = File::isHidden;
 		// MyFuncI funcI = File::canRead;
 		// MyFuncI funcI = File::isDirectory;
@@ -110,7 +109,7 @@ public class Lesson_01_FunctionsIntro {
 				.stream() //
 				.map(f -> f.toString()) //
 				.collect(Collectors.joining(", ")));
-
+		return readableFiles;
 	}
 
 	// 2) Example 2: Predicate

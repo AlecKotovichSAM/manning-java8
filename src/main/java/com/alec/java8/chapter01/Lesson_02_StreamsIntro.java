@@ -45,8 +45,7 @@ public class Lesson_02_StreamsIntro {
 			}
 		}
 
-		BiConsumer<? super Currency, ? super List<Transaction>> action = (k, v) -> System.out
-				.println(k + " = " + v.toString());
+		BiConsumer<? super Currency, ? super List<Transaction>> action = (k, v) -> System.out.println(k + " = " + v.toString());
 		transactionsByCurrencies.forEach(action);
 
 		// Stream modern way adds some magic :)
